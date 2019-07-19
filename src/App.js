@@ -15,7 +15,6 @@ function App() {
         }, [pageNum]);
 
         const getData = async () => {
-            console.log("api" + pageNum);
             const response = await axios.get(endpoint);
             setData([...data, ...response.data.photos.photo]);
         };
