@@ -36,7 +36,7 @@ function App() {
     }, [savedImages]);
 
     //adding infinite scrolling
-    const handleScroll = async () => {
+    const handleScroll = () => {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
         setPageNum(pageNum+1);
 

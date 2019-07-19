@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import ImagesContext from '../ImagesContext';
 import axios from 'axios';
 import {DebounceInput} from 'react-debounce-input';
