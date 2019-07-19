@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+
+  .search-lining{
+    margin: 10px;
+    border: 1px solid black;
+
+    input{
+      border: 1px solid black;
+      margin-bottom: 10px;
+      height: 24px;
+      width: 233px;
+    }
+  }
+
+  img{
+    margin: 10px;
+  }
+}
