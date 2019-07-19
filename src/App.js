@@ -6,23 +6,23 @@ import axios from 'axios';
 import SearchBar from './components/SearchBar';
 import ImagesBoard from './components/ImagesBoard';
 
-function App() {
+const useApi = (endpoint) => {
+    const [data, setData] = useState([]);
 
-    const useApi = (endpoint) => {
+    useEffect(() => {
+        getData();
+    }, [endpoint]);
 
-        useEffect(() => {
-            getData();
-        }, [pageNum]);
-
-        const getData = async () => {
-            const response = await axios.get(endpoint);
-            setData([...data, ...response.data.photos.photo]);
-        };
-
-        return data;
+    const getData = async () => {
+        const response = await axios.get(endpoint);
+        setData([...data, ...response.data.photos.photo]);
     };
 
-    const [data, setData] = useState([]);
+    return data;
+};
+
+function App() {
+
     const initialState = useContext(ImagesContext);
     const [state, dispatch] = useReducer(ImagesReducer, initialState);
     const [pageNum, setPageNum] = useState(1);
@@ -44,9 +44,10 @@ function App() {
     };
 
     useEffect(() => {
+        console.log("scroll");
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    });
+    }, [document.documentElement.scrollTop]);
 
     return (
         <ImagesContext.Provider value={{state, dispatch}}>

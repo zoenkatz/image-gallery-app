@@ -6,10 +6,12 @@ import {DebounceInput} from 'react-debounce-input';
 export default function SearchBar() {
     const [queryInput, setQueryInput] = useState("");
     const {dispatch} = useContext(ImagesContext);
-    const queries = localStorage.getItem('queries') ? JSON.parse(localStorage.getItem('queries')) : localStorage.setItem(`queries`, JSON.stringify({}));
+    const queries = localStorage.getItem('queries') ?
+        JSON.parse(localStorage.getItem('queries')) : localStorage.setItem(`queries`, JSON.stringify({}));
 
     const searchImages = async (event) => {
         setQueryInput(event.target.value);
+        dispatch({type: "SET_QUERY", payload: event.target.value});
 
         const response = await axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&safe_search=1&format=json&nojsoncallback=1&api_key=bac9f1ccfd854f27894fd47c4f01b1e8&content_type=1&is_getty=1&text=${event.target.value}`);
         dispatch({type: "GET_IMAGES", payload: response.data.photos.photo});
