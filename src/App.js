@@ -44,7 +44,6 @@ function App() {
     };
 
     useEffect(() => {
-        console.log("scroll");
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [document.documentElement.scrollTop]);
