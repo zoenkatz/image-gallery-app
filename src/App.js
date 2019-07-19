@@ -17,7 +17,6 @@ function App() {
         const getData = async () => {
             console.log("api" + pageNum);
             const response = await axios.get(endpoint);
-            debugger;
             setData([...data, ...response.data.photos.photo]);
         };
 
@@ -37,6 +36,7 @@ function App() {
         })
     }, [savedImages]);
 
+    //adding infinite scrolling
     const handleScroll = async () => {
         if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
         setPageNum(pageNum+1);
