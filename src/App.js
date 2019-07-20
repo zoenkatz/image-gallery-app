@@ -6,27 +6,29 @@ import axios from 'axios';
 import SearchBar from './components/SearchBar';
 import ImagesBoard from './components/ImagesBoard';
 
-const useApi = (endpoint) => {
-    const [data, setData] = useState([]);
 
-    useEffect(() => {
-        getData();
-    }, [endpoint]);
-
-    const getData = async () => {
-        const response = await axios.get(endpoint);
-        setData([...data, ...response.data.photos.photo]);
-    };
-
-    return data;
-};
 
 function App() {
+
+    const useApi = (endpoint) => {
+        const [data, setData] = useState([]);
+
+        useEffect(() => {
+            getData();
+        }, [pageNum]);
+
+        const getData = async () => {
+            const response = await axios.get(endpoint);
+            setData([...state.images, ...response.data.photos.photo]);
+        };
+
+        return data;
+    };
 
     const initialState = useContext(ImagesContext);
     const [state, dispatch] = useReducer(ImagesReducer, initialState);
     const [pageNum, setPageNum] = useState(1);
-    const savedImages = useApi(`https://api.flickr.com/services/rest/?method=flickr.photos.search&safe_search=1&format=json&nojsoncallback=1&api_key=bac9f1ccfd854f27894fd47c4f01b1e8&content_type=1&is_getty=1&page=${pageNum}`);
+    const savedImages = useApi(`https://api.flickr.com/services/rest/?method=flickr.photos.search&safe_search=1&format=json&nojsoncallback=1&api_key=bac9f1ccfd854f27894fd47c4f01b1e8&content_type=1&is_getty=1&page=${pageNum}&text=${state.query}`);
 
     useEffect(() => {
         dispatch({
